@@ -1,0 +1,24 @@
+[Unit]
+Description=Monitoring system and time series database
+Documentation=https://prometheus.io/docs/introduction/overview/
+
+[Service]
+Restart=always
+User=prometheus
+Group=prometheus
+#EnvironmentFile=/etc/prometheus
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+LimitNOFILE=8192
+ExecStart=/usr/local/bin/prometheus $ARGS \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.retention.time=1y \
+    --storage.tsdb.path=/promex/promex/metrix/ \
+    --storage.tsdb.retention.size=450GB \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries \
+    --web.enable-lifecycle
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,91 @@
+127.0.0.1 localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+127.0.0.1 localhost
+127.0.1.1 monitorx
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+##OPENSTACK DC
+192.168.198.11 tinker tinker.os.internal controller01
+192.168.198.12 invoker invoker.os.internal controller02
+192.168.198.13 ogre ogre.os.internal controller03
+192.168.198.14 pudge pudge.os.internal compute01
+192.168.198.15 juggernaut juggernaut.os.internal compute02
+192.168.198.16 slardar slardar.os.internal compute03
+192.168.198.17 antimage slardar.os.internal compute04
+192.168.198.10 controller controller.os.internal
+
+
+##OPENSTACK DRC
+192.168.196.100 bali-1-os.palapacloud.id s3-bali.palapacloud.id
+192.168.196.100 bali-s3.palapacloud.id
+192.168.196.101 alchemist
+192.168.196.102 sven
+192.168.196.103 razor
+
+#klhk
+182.23.160.100	CloudDatabaseServer2
+182.23.160.68	CloudDatabaseServer1
+182.23.160.201	CloudAPIServer2
+182.23.160.26	CloudAPIServer1
+182.23.160.206	CloudApplicationServer2
+182.23.160.234	CloudApplicationServer1
+182.23.160.228	CloudApplicationServer3
+182.23.160.37   CloudEnterpriseArchitectureServer
+
+116.66.200.8	PrtgServer
+
+#Proxmox
+192.168.200.6	Gatotkaca1
+192.168.200.9	Bimasena1
+192.168.200.32	Heartless
+192.168.200.33	Faceless
+192.168.200.34	Shameless
+192.168.200.35	Tasteless
+192.168.200.36	Painless
+192.168.200.37	Effortless
+192.168.200.38	Talkless
+223.27.155.46	Proxmox-drcbali
+
+#CEPH-PALAPACLOUD
+192.168.198.10	palapacloud-ceph-dc
+
+##OPENSTACK-CLOUD
+182.23.160.115	cloudserver-PUPR
+192.168.200.96	s3-exporter
+192.168.200.81	prometheus2
+
+## PROXMOX CLOUD USER
+182.23.160.21	cloudserver-pupr-ppdpp
+
+##DEVAPPS
+192.168.200.104	GALERA01
+192.168.200.105	GALERA02
+192.168.200.106	GALERA03
+
+##PERPUSNAS
+116.254.125.211	jakarta
+116.254.125.212	bandung
+
+##SKK MIGAS
+10.10.10.5      SKK-DB-MAIN-K3S-IOG
+10.10.10.6      SKK-API-MAIN
+10.10.10.7      WEB-ADMIN-PANEL
+10.10.10.8      WEB-SKK
+10.10.10.9      WEB-K3S
+10.10.10.10     WEB-IOG
+10.10.10.11     WEB-DEV

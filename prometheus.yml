@@ -1,0 +1,212 @@
+# Sample config for Prometheus.
+
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+      monitor: 'example'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['localhost:9093']
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+#rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    scrape_timeout: 5s
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: node
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    # If prometheus-node-exporter is installed, grab stats about the local
+    # machine by default.
+    static_configs:
+      - targets: ['192.168.198.11:9100','192.168.198.12:9100','192.168.198.13:9100','192.168.198.14:9100','192.168.198.15:9100','192.168.198.16:9100','192.168.198.17:9100']
+
+  - job_name: node-drc
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    static_configs:
+      - targets: ['192.168.196.101:9100']
+      - targets: ['192.168.196.102:9100']
+      - targets: ['192.168.196.103:9100']
+
+  - job_name: haproxy
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    # If prometheus-node-exporter is installed, grab stats about the local
+    # machine by default.
+    static_configs:
+      - targets: ['192.168.198.11:8404','192.168.198.12:8404','192.168.198.13:8404']
+
+        #  - job_name: instances
+        #    scrape_interval: 5s
+        #    scrape_timeout: 5s
+        #    metrics_path: /metrix
+    #    static_configs:
+            #      - targets: ['182.23.160.33:9100']
+        #      - targets: ['182.23.160.51:9100']
+        #      - targets: ['182.23.160.129:9100']
+
+######### below here is KLHK dude
+  - job_name: klhk
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrix
+    static_configs:
+      - targets: ['CloudDatabaseServer2:9100']
+      - targets: ['CloudDatabaseServer1:9100']
+      - targets: ['CloudAPIServer2:9100']
+      - targets: ['CloudAPIServer1:9100']
+      - targets: ['CloudApplicationServer2:9100']
+      - targets: ['CloudApplicationServer1:9100']
+      - targets: ['CloudApplicationServer3:9100']
+        # labels:
+        #  job: klhk
+        #  --metrics_path__: /metrix
+
+
+  - job_name: klhkwindows
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['CloudEnterpriseArchitectureServer:9182']
+        # labels:
+        #  job: klhk
+        #  --metrics_path__: /metrics
+
+  - job_name: WindowsServer
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['PrtgServer:9182']
+
+## PROXMOX ##
+
+  - job_name: proxmox
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['Bimasena1:9100']
+      - targets: ['Gatotkaca1:9100']
+      - targets: ['Proxmox-drcbali:9100']
+
+  - job_name: proxmox-cluster
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['Faceless:9100']
+      - targets: ['Shameless:9100']
+      - targets: ['Tasteless:9100']
+      - targets: ['Painless:9100']
+      - targets: ['Effortless:9100']
+      - targets: ['Talkless:9100']
+
+  - job_name: pve
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /pve
+    static_configs:
+      - targets: ['Gatotkaca1:9221']
+      - targets: ['Bimasena1:9221']
+      - targets: ['Faceless:9221']
+      - targets: ['Shameless:9221']
+      - targets: ['Tasteless:9221']
+      - targets: ['Painless:9221']
+      - targets: ['Effortless:9221']
+      - targets: ['Talkless:9221']
+
+
+  - job_name: 'lhk-nginx'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['CloudApplicationServer2:9113']
+      - targets: ['CloudApplicationServer1:9113']
+
+  - job_name: 'proxysql-dc'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['192.168.198.11:6070','192.168.198.12:6070','192.168.198.13:6070']
+
+  - job_name: ceph-cluster
+    scrape_interval: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['192.168.198.10:9283']
+        labels:
+         cluster: 'palapacloud-dc'
+      - targets: ['192.168.200.34:9283']
+        labels:
+         cluster: 'clusless'
+      - targets: ['192.168.196.100:9283']
+        labels:
+         cluster: 'palapacloud-drc'
+
+  - job_name: cloud-openstack
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['cloudserver-pupr:9100']
+      - targets: ['cloudserver-pupr-ppdpp:9100']
+
+  - job_name: 's3storage'
+    scrape_interval: 2m
+    scrape_timeout: 2m
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['s3-exporter:9655']
+      - targets: ['s3-exporter:8080']
+      - targets: ['s3-exporter:8081']
+      - targets: ['s3-exporter:8082']
+      - targets: ['s3-exporter:8083']
+
+  - job_name: server_perpusnas
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['jakarta:9100']
+      - targets: ['bandung:9100']
+
+
+## PROMETHEUS FEDERATION
+
+  - job_name: dc_prometheus
+    honor_labels: true
+    metrics_path: /federate
+    params:
+      match[]:
+        - '{__name__=~"^job:.*"}'   # Request all job-level time series
+    static_configs:
+      - targets:
+        - prometheus2:9090
+
+
